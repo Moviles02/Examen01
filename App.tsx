@@ -10,41 +10,12 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 
-function HomeStackNavigator() {
+function DrawNav() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Details" component={InformacionPokemon} />
     </Stack.Navigator>
-  );
-}
-
-function DrawNav() {
-  return (
-    <Drawer.Navigator 
-      initialRouteName="Home"
-      drawerContent={(props) => (
-        <SafeAreaView>
-          <View
-            style={{
-              height: 200,
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderBottomColor: '#f4f4f4',
-              borderBottomWidth: 1,
-              backgroundColor: "#F3D7CA"
-            }}>
-            {}
-          </View>
-          <DrawerItemList {...props} />
-        </SafeAreaView>
-      )}
-    >
-      {}
-      <Drawer.Screen name="Home" component={HomeStackNavigator} />
-      {}
-    </Drawer.Navigator>
   );
 }
 
