@@ -15,12 +15,7 @@ return(
                 resizeMode="cover"
             />
             <Text style={style_01.paragraph}>
-                Cada ave está especializada a un nicho respectivo, es por esto que
-                son consideradas indicadores biológicos, es decir, la presencia de una
-                especie específica en un determinado lugar, puede indicar salud o no
-                en los ecosistemas. La función de las aves en el medio ambiente es
-                vital, sin ellas no se producirían las grandes cadenas que hacen que
-                los ecosistemas funcionen.
+                Primera generación
             </Text>
         </ScrollView>
     </SafeAreaView>

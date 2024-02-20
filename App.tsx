@@ -51,14 +51,7 @@ function DrawNav() {
               borderBottomWidth: 1,
               backgroundColor: "#F3D7CA"
             }}>
-            <Image
-              source={require('../Lab01_App/src/imgs/logo.jpeg')}
-              style={{
-                height: 130,
-                width: 130,
-                borderRadius: 65
-              }}
-            />
+            
             </View>
             <DrawerItemList {...props}/>
           </SafeAreaView>
