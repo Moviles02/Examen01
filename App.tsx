@@ -1,30 +1,33 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {DrawerItemList, createDrawerNavigator} from '@react-navigation/drawer';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { Image, View } from 'react-native';
-/* custom modules */
-import Home from './src/views/home';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Image, View, SafeAreaView } from 'react-native';
+import HomeScreen from './src/views/home';
+import InformacionPokemon from './src/views/informacionPokemon';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const BirdGallery = () => {
-  
-};
+
+function HomeStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={InformacionPokemon} />
+    </Stack.Navigator>
+  );
+}
 
 function DrawNav() {
   return (
     <Drawer.Navigator 
-    initialRouteName="Casa de los pokemones"
-    drawerContent={
-      (props)=>{
-        return(
-          <SafeAreaView>
-            <View
+      initialRouteName="Home"
+      drawerContent={(props) => (
+        <SafeAreaView>
+          <View
             style={{
-              height:200,
+              height: 200,
               width: '100%',
               justifyContent: 'center',
               alignItems: 'center',
@@ -32,22 +35,23 @@ function DrawNav() {
               borderBottomWidth: 1,
               backgroundColor: "#F3D7CA"
             }}>
-            
-            </View>
-            <DrawerItemList {...props}/>
-          </SafeAreaView>
-        )
-      }
-    }>
-    <Drawer.Screen name="Casa de los pokemones" component={Home}/>
+            {}
+          </View>
+          <DrawerItemList {...props} />
+        </SafeAreaView>
+      )}
+    >
+      {}
+      <Drawer.Screen name="Home" component={HomeStackNavigator} />
+      {}
     </Drawer.Navigator>
   );
 }
 
-function App(){
-  return(
+function App() {
+  return (
     <NavigationContainer>
-      <DrawNav/>
+      <DrawNav />
     </NavigationContainer>
   );
 }

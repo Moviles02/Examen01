@@ -5,7 +5,7 @@ import { styles } from "../styles/styles";
 
 import React, { useState, useEffect } from 'react';
 
-const HomeScreen = ({ navigation }) => {
+const Home = ({ navigation }) => {
   const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
@@ -49,4 +49,4 @@ const HomeScreen = ({ navigation }) => {
 
 
 
-export default HomeScreen;
+export default Home;
