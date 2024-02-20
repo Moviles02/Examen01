@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export const style_01 = StyleSheet.create({
     btn_Home: {
     alignItems: 'center',
-    backgroundColor: '#00D100',
+    backgroundColor: '#000000',
     borderColor: '#000000',
     borderWidth: 1,
     fontWeight: 'bold',
@@ -13,7 +13,7 @@ export const style_01 = StyleSheet.create({
 
     btn_Details: {
     alignItems: 'center',
-    backgroundColor: '#FF7634',
+    backgroundColor: '#000000',
     borderColor: '#000000',
     borderWidth: 1,
     fontWeight: 'bold',
@@ -23,7 +23,7 @@ export const style_01 = StyleSheet.create({
 
     btn_About: {
     alignItems: 'center',
-    backgroundColor: '#FF0000',
+    backgroundColor: '#000000',
     borderColor: '#000000',
     borderWidth: 1,
     fontWeight: 'bold',
@@ -48,7 +48,7 @@ export const style_01 = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5EEE6'
+    backgroundColor: '#ffffff'
     },
     
     h1: {
@@ -84,19 +84,21 @@ export const style_01 = StyleSheet.create({
 
      background: {
         flex: 1,
-        backgroundColor: '#f0f0f0', 
+        backgroundColor: '#000000', 
       },
       image: {
         width: '100%',
-        height: 350,
-        marginBottom: 20,
+        height: 140,
         marginTop: 20,
-    },
+        },
     paragraph: {
-      fontSize: 16,
+      fontSize: 26,
       color: '#000000',
       textAlign: 'justify',
       margin: 25,
+      fontWeight: 'bold',
 
   },
+  
+
 });
