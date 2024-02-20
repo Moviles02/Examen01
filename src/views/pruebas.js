@@ -1,74 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  SafeAreaView,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  Button,
+} from "react-native";
+import { style_01 } from "../styles/style_01";
 
-
-
-const HomeScreen = ({ navigation }) => {
+const Home = ({ navigation }) => {
   const [pokemons, setPokemons] = useState([]);
+  const [generation, setGeneration] = useState(1);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const loadGeneration = (gen) => {
+    setIsVisible(true);
+    const offset = (gen - 1) * 151;
+    const limit = 151;
+
+    fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
+      .then((response) => response.json())
+      .then((data) => setPokemons(data.results))
+      .catch((error) => console.error(error));
+  };
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=151')
-      .then((response) => response.json())
-      .then((data) => setPokemons(data.results));
-  }, []);
+    loadGeneration(generation);
+  }, [generation]);
 
   const renderPokemon = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Details', { pokemon: item.name })}>
-      <Image source={{ uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${item.name}.png` }} style={styles.image} />
-      <Text style={styles.name}>{item.name}</Text>
+    <TouchableOpacity
+      style={style_01.card}
+      onPress={() => navigation.navigate("Details", { pokemon: item.name })}
+    >
+      <Image
+        source={{
+          uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${item.name}.png`,
+        }}
+        style={style_01.image}
+      />
+      <Text style={style_01.name}>{item.name}</Text>
     </TouchableOpacity>
   );
 
- return (
-  <SafeAreaView style={style_01.cont}>
-    <Image
-      source={require("../imgs/logoPM.png")}
-      style={style_01.image}
-      resizeMode="cover"
-    />
-    <Text style={style_01.paragraph}>Primera generación</Text>
+  return (
+    <SafeAreaView style={style_01.cont}>
+      <Image
+        source={require("../imgs/logoPM.png")}
+        style={style_01.imageLogo}
+        resizeMode="cover"
+      />
+      <View style={style_01.buttonContainer}>
+        <Button title="Generación 1" onPress={() => setGeneration(1)} />
+        <Button title="Generación 2" onPress={() => setGeneration(2)} />
+        <Button title="Generación 3" onPress={() => setGeneration(3)} />
+        <Button title="Generación 4" onPress={() => setGeneration(4)} />
+        <Button title="Generación 5" onPress={() => setGeneration(5)} />
 
-    <ScrollView>
-    <View style={styles.container}>
-        <FlatList
-          data={pokemons}
-          renderItem={renderPokemon}
-          keyExtractor={(item) => item.name}
-          contentContainerStyle={styles.scrollViewContent}
+        <Button
+          title={isVisible ? "Ocultar" : "Mostrar"}
+          onPress={() => setIsVisible(!isVisible)}
         />
       </View>
-    </ScrollView>
-  </SafeAreaView>
-);
+
+      {isVisible && (
+        <ScrollView>
+          <View style={style_01.container}>
+            <FlatList
+              data={pokemons}
+              renderItem={renderPokemon}
+              keyExtractor={(item) => item.name}
+              contentContainerStyle={style_01.scrollViewContent}
+            />
+          </View>
+        </ScrollView>
+      )}
+    </SafeAreaView>
+  );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: { height: 3, width: 0 },
-    marginVertical: 8,
-    marginHorizontal: 16,
-    padding: 20,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 16,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
-
-export default HomeScreen;
+export default Home;

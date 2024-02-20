@@ -10,12 +10,13 @@ import {
   Button,
 } from "react-native";
 import { style_01 } from "../styles/style_01";
-import { styles } from "../styles/styles";
 
 const Home = ({ navigation }) => {
   const [pokemons, setPokemons] = useState([]);
   const [generation, setGeneration] = useState(1);
   const [isVisible, setIsVisible] = useState(true);
+
+  const generations = Array.from({ length: 5 }, (_, i) => i + 1);
 
   const loadGeneration = (gen) => {
     setIsVisible(true);
@@ -34,16 +35,28 @@ const Home = ({ navigation }) => {
 
   const renderPokemon = ({ item }) => (
     <TouchableOpacity
-      style={styles.card}
+      style={style_01.card}
       onPress={() => navigation.navigate("Details", { pokemon: item.name })}
     >
       <Image
         source={{
           uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${item.name}.png`,
         }}
-        style={styles.image}
+        style={style_01.image}
       />
-      <Text style={styles.name}>{item.name}</Text>
+      <Text style={style_01.name}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderGenerationButton = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => setGeneration(item)}
+      style={[
+        style_01.button,
+        generation === item && style_01.activeButton, // Agrega un estilo adicional si es la generación activa
+      ]}
+    >
+      <Text style={style_01.buttonText}>Generación {item}</Text>
     </TouchableOpacity>
   );
 
@@ -51,33 +64,31 @@ const Home = ({ navigation }) => {
     <SafeAreaView style={style_01.cont}>
       <Image
         source={require("../imgs/logoPM.png")}
-        style={style_01.image}
+        style={style_01.Imagelogo}
         resizeMode="cover"
       />
-      <View style={styles.buttonContainer}>
-        <Button title="Generación 1" onPress={() => setGeneration(1)} />
-        <Button title="Generación 2" onPress={() => setGeneration(2)} />
-        <Button title="Generación 3" onPress={() => setGeneration(3)} />
-        <Button title="Generación 4" onPress={() => setGeneration(4)} />
-        <Button title="Generación 5" onPress={() => setGeneration(5)} />
-
-        <Button
-          title={isVisible ? "Ocultar" : "Mostrar"}
-          onPress={() => setIsVisible(!isVisible)}
-        />
-      </View>
-
+      <FlatList
+        horizontal
+        data={generations}
+        renderItem={renderGenerationButton}
+        keyExtractor={(item) => item.toString()}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={style_01.generationList}
+      />
       {isVisible && (
-        <ScrollView>
-          <View style={styles.container}>
-            <FlatList
-              data={pokemons}
-              renderItem={renderPokemon}
-              keyExtractor={(item) => item.name}
-              contentContainerStyle={styles.scrollViewContent}
-            />
-          </View>
-        </ScrollView>
+        <>
+          <Text style={style_01.generationTitle}>Generación {generation}</Text>
+          <ScrollView>
+            <View style={style_01.container}>
+              <FlatList
+                data={pokemons}
+                renderItem={renderPokemon}
+                keyExtractor={(item) => item.name}
+                contentContainerStyle={style_01.scrollViewContent}
+              />
+            </View>
+          </ScrollView>
+        </>
       )}
     </SafeAreaView>
   );
